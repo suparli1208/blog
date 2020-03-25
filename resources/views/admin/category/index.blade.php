@@ -18,7 +18,7 @@
         <tr>
             <td>{{$result + $category->firstitem()}}</td>
             <td>{{$hasil->name}}</td>
-            <td><a href="" class="btn btn-primary btn-sm">Edit</a><a href="" class="btn btn-danger btn-sm">Hapus</a></td>
+            <td><a href="{{ route('category.edit',$hasil->id) }}" class="btn btn-primary btn-sm">Edit</a><a href="" class="btn btn-danger btn-sm">Hapus</a></td>
         </tr>
         @endforeach
     </tbody>
