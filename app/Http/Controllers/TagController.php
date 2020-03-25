@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Controller;
+use App\Tags;
 use Illuminate\Http\Request;
-use App\Category;
 use Illuminate\Support\Str;
 
-class CategoryController extends Controller
+class TagController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +16,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $category = Category::paginate(10);
-        return view('admin.category.index', compact('category'));
+        $tag = Tags::paginate(10);
+        return view('admin.tag.index', compact('tag'));
     }
 
     /**
@@ -26,7 +27,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('admin.category.create');
+        return view('admin.tag.create');
     }
 
     /**
@@ -41,7 +42,7 @@ class CategoryController extends Controller
             'name' => 'required|min:3'
         ]);
 
-        $category = Category::create([
+        Tags::create([
             'name' => $request->name,
             'slug' => Str::slug($request->name)
         ]);
@@ -68,8 +69,8 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        $category = Category::findorfail($id);
-        return view('admin.category.edit', compact('category'));
+        $tag = Tags::findorfail($id);
+        return view('admin.tag.edit', compact('tag'));
     }
 
     /**
@@ -85,14 +86,14 @@ class CategoryController extends Controller
             'name' => 'required'
         ]);
 
-        $category_data = [
+        $tag_data = [
             'name' => $request->name,
             'slug' => Str::slug($request->name)
         ];
 
-        Category::whereId($id)->update($category_data);
+        Tags::whereId($id)->update($tag_data);
 
-        return redirect()->route('category.index')->with('success', 'Kategori berhasil di simpan');
+        return redirect()->route('tag.index')->with('success', 'Kategori berhasil di simpan');
     }
 
     /**
@@ -103,7 +104,7 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        Category::findorfail($id)->delete();
+        Tags::findorfail($id)->delete();
 
         return redirect()->back()->with('success', 'Data berhasil di hapus');
     }

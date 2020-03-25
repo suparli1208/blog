@@ -1,8 +1,8 @@
 @extends('template_backend.home')
-@section('sub-judul', 'Kategori')
+@section('sub-judul', 'Post')
 @section('content')
 
-<a href="{{route('category.create')}}" class="btn btn-info mb-3">Tambah Kategori</a>
+<a href="{{route('post.create')}}" class="btn btn-info mb-3">Tambah Post</a>
 <br>
 
 @if (Session::has('success'))
@@ -22,20 +22,22 @@
     <thead>
         <tr>
             <th>No</th>
-            <th>Nama Kategori</th>
+            <th>Judul Post</th>
+            <th>Kategori</th>
             <th>Action</th>
         </tr>
     </thead>
     <tbody>
-        @foreach ($category as $result => $hasil)
+        @foreach ($post as $result => $hasil)
         <tr>
-            <td>{{$result + $category->firstitem()}}</td>
-            <td>{{$hasil->name}}</td>
+            <td>{{$result + $post->firstitem()}}</td>
+            <td>{{$hasil->judul}}</td>
+            <td>{{$hasil->category->name}}</td>
             <td>
-                <form action="{{ route('category.destroy', $hasil->id) }}" method="POST">
+                <form action="{{ route('post.destroy', $hasil->id) }}" method="POST">
                     @csrf
                     @method('delete')
-                    <a href="{{ route('category.edit',$hasil->id) }}" class="btn btn-primary btn-sm">Edit</a>
+                    <a href="{{ route('post.edit',$hasil->id) }}" class="btn btn-primary btn-sm">Edit</a>
                     <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
                 </form>
             </td>
@@ -44,7 +46,7 @@
         @endforeach
     </tbody>
 </table>
-{{$category->links()}}
+{{$post->links()}}
 
 
 

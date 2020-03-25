@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Category;
-use Illuminate\Support\Str;
+use App\Http\Controllers\Controller;
+use App\Posts;
+use Illuminate\Http\Request;
 
-class CategoryController extends Controller
+class PostController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +16,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $category = Category::paginate(10);
-        return view('admin.category.index', compact('category'));
+        $post = Posts::paginate(10);
+        return view('admin.post.index', compact('post'));
     }
 
     /**
@@ -26,7 +27,8 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('admin.category.create');
+        $category = Category::all();
+        return view('admin.post.create', compact('category'));
     }
 
     /**
@@ -38,15 +40,25 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required|min:3'
+            'judul' => 'required',
+            'category_id' => 'required',
+            'content' => 'required',
+            'gambar' => 'required'
         ]);
 
-        $category = Category::create([
-            'name' => $request->name,
-            'slug' => Str::slug($request->name)
-        ]);
+        $gambar = $request->gambar;
+        $new_gambar = time() . $gambar->getClientOriginalName();
 
-        return redirect()->back()->with('success', 'Kategori berhasil di simpan');
+        Posts::create([
+            'judul' => $request->judul,
+            'category_id' => $request->category_id,
+            'content' => $request->content,
+            'gambar' => 'public/uploads/post/' . $new_gambar
+
+
+        ]);
+        $gambar->move('public/uploads/post/', $new_gambar);
+        return redirect()->back()->with('success', 'Postingan anda berhasil di simpan');
     }
 
     /**
@@ -68,8 +80,7 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        $category = Category::findorfail($id);
-        return view('admin.category.edit', compact('category'));
+        //
     }
 
     /**
@@ -81,18 +92,7 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request, [
-            'name' => 'required'
-        ]);
-
-        $category_data = [
-            'name' => $request->name,
-            'slug' => Str::slug($request->name)
-        ];
-
-        Category::whereId($id)->update($category_data);
-
-        return redirect()->route('category.index')->with('success', 'Kategori berhasil di simpan');
+        //
     }
 
     /**
@@ -103,8 +103,6 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        Category::findorfail($id)->delete();
-
-        return redirect()->back()->with('success', 'Data berhasil di hapus');
+        //
     }
 }
