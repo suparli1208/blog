@@ -6,6 +6,7 @@ use App\Category;
 use App\Http\Controllers\Controller;
 use App\Posts;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class PostController extends Controller
 {
@@ -44,6 +45,7 @@ class PostController extends Controller
             'category_id' => 'required',
             'content' => 'required',
             'gambar' => 'required'
+
         ]);
 
         $gambar = $request->gambar;
@@ -53,7 +55,8 @@ class PostController extends Controller
             'judul' => $request->judul,
             'category_id' => $request->category_id,
             'content' => $request->content,
-            'gambar' => 'public/uploads/post/' . $new_gambar
+            'gambar' => 'public/uploads/post/' . $new_gambar,
+            'slug' => Str::slug($request->judul)
 
 
         ]);

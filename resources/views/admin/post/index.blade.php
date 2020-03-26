@@ -24,6 +24,7 @@
             <th>No</th>
             <th>Judul Post</th>
             <th>Kategori</th>
+            <th>Thumbnail</th>
             <th>Action</th>
         </tr>
     </thead>
@@ -33,6 +34,7 @@
             <td>{{$result + $post->firstitem()}}</td>
             <td>{{$hasil->judul}}</td>
             <td>{{$hasil->category->name}}</td>
+        <td> <img src="{{asset($hasil->gambar)}}" class="img-fluid" style="width:50px"></td>
             <td>
                 <form action="{{ route('post.destroy', $hasil->id) }}" method="POST">
                     @csrf

@@ -16,28 +16,28 @@
         </ul>
       </li>
       <li class="menu-header">Starter</li>
-      <li class="dropdown">
+      <li @if(Request::segment(1) == 'post') class="dropdown active" @endif>
         <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i>
           <span>Post</span></a>
         <ul class="dropdown-menu">
-          <li><a class="nav-link" href="{{route('post.index')}}">List Post</a></li>
+          <li @if(Request::segment(1) == 'post')class="active" @endif><a class="nav-link active" href="{{route('post.index')}}">List Post</a></li>
         </ul>
       </li>
-      <li class="dropdown">
+      <li @if(Request::segment(1) == 'category') class="dropdown active" @endif>
         <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i>
           <span>Kategori</span></a>
         <ul class="dropdown-menu">
-          <li><a class="nav-link" href="{{route('category.index')}}">List Kategori</a></li>
+          <li @if(Request::segment(1) == 'category')class="active" @endif><a class="nav-link" href="{{route('category.index')}}">List Kategori</a></li>
         </ul>
       </li>
-      <li class="dropdown">
+      <li @if(Request::segment(1) == 'tag') class="dropdown active" @endif>
         <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i>
           <span>Tag</span></a>
         <ul class="dropdown-menu">
-          <li><a class="nav-link" href="{{route('tag.index')}}">List Tag</a></li>
+          <li @if(Request::segment(1) == 'tag')class="active" @endif><a class="nav-link" href="{{route('tag.index')}}">List Tag</a></li>
         </ul>
       </li>
-      <li class=active><a class="nav-link" href="blank.html"><i class="far fa-square"></i> <span>Blank Page</span></a>
+      <li><a class="nav-link" href="blank.html"><i class="far fa-square"></i> <span>Blank Page</span></a>
       </li>
   </aside>
 </div>
