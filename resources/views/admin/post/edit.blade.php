@@ -1,5 +1,5 @@
 @extends('template_backend.home')
-@section('sub-judul', 'Tambah Post')
+@section('sub-judul', 'Edit Post')
 @section('content')
 
 
@@ -30,22 +30,29 @@
 
 @endif
 
-<form action="{{route('post.store')}}" method="POST" enctype="multipart/form-data">
+<form action="{{route('post.update',$post->id)}}" method="POST" enctype="multipart/form-data">
     @csrf
+    @method('PATCH')
     <div class="form-group">
         <label>Judul</label>
-        <input type="text" class="form-control" name="judul">
+    <input type="text" class="form-control" name="judul" value="{{$post->judul}}">
     </div>
     <div class="form-group">
         <label>Kontent</label>
-        <textarea type="text" class="form-control" name="content"></textarea>
+    <textarea type="text" class="form-control" name="content">{{$post->content}}</textarea>
     </div>
     <div class="form-group">
         <label>Tags</label>
         <select class="form-control select2" multiple="" name="tags[]">
             @foreach ($tag as $tags)
 
-        <option value="{{$tags->id}}">{{$tags->name}}</option>
+                <option value="{{$tags->id}}"
+                @foreach ($post->tags as $value )
+                    @if($tags->id == $value->id)
+                    selected
+                    @endif
+                @endforeach
+                >{{$tags->name}}</option>
 
             @endforeach
 
@@ -56,7 +63,11 @@
         <select class="form-control" name="category_id">
             <option value=""> Pilih Kategori </option>
             @foreach ($category as $hasil)
-            <option value="{{$hasil->id}}"> {{$hasil->name}} </option>
+            <option value="{{$hasil->id}}"
+                @if($post->category_id == $hasil->id)
+                selected
+                @endif
+                > {{$hasil->name}} </option>
             @endforeach
 
         </select>
@@ -67,7 +78,7 @@
     </div>
 
     <div class="form-group">
-        <button class="btn btn-primary btn-block">Tambah Post</button>
+        <button class="btn btn-primary btn-block">Ubah Post</button>
     </div>
 
 </form>

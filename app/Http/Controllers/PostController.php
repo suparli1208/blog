@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Category;
 use App\Http\Controllers\Controller;
 use App\Posts;
+use App\Tags;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -28,8 +29,9 @@ class PostController extends Controller
      */
     public function create()
     {
+        $tag = Tags::all();
         $category = Category::all();
-        return view('admin.post.create', compact('category'));
+        return view('admin.post.create', compact('category', 'tag'));
     }
 
     /**
@@ -51,7 +53,7 @@ class PostController extends Controller
         $gambar = $request->gambar;
         $new_gambar = time() . $gambar->getClientOriginalName();
 
-        Posts::create([
+        $post = Posts::create([
             'judul' => $request->judul,
             'category_id' => $request->category_id,
             'content' => $request->content,
@@ -60,8 +62,11 @@ class PostController extends Controller
 
 
         ]);
+
+        $post->tags()->attach($request->tags);
+
         $gambar->move('public/uploads/post/', $new_gambar);
-        return redirect()->back()->with('success', 'Postingan anda berhasil di simpan');
+        return redirect()->route('post.index')->with('success', 'Postingan anda berhasil di simpan');
     }
 
     /**
@@ -83,8 +88,12 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        //
+        $category = Category::all();
+        $tag = Tags::all();
+        $post = Posts::findorfail($id);
+        return view('admin.post.edit', compact('post', 'tag', 'category'));
     }
+
 
     /**
      * Update the specified resource in storage.
@@ -95,7 +104,34 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'judul' => 'required',
+            'category_id' => 'required',
+            'content' => 'required'
+
+        ]);
+        $post = Posts::findorfail($id);
+
+        $post_data = [
+            'judul' => $request->judul,
+            'category_id' => $request->category_id,
+            'content' => $request->content,
+            'slug' => Str::slug($request->judul)
+        ];
+
+        if ($request->has('gambar')) {
+            $gambar = $request->gambar;
+            $new_gambar = time() . $gambar->getClientOriginalName();
+            $gambar->move('public/uploads/post/', $new_gambar);
+            $post_data = [
+                'gambar' => 'public/uploads/post/' . $new_gambar
+            ];
+        }
+        $post->tags()->sync($request->tags);
+        $post->update($post_data);
+
+
+        return redirect()->route('post.index')->with('success', 'Postingan anda berhasil di Update');
     }
 
     /**

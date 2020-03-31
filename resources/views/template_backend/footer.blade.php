@@ -17,12 +17,14 @@
 <script src="{{ asset('public/assets/modules/nicescroll/jquery.nicescroll.min.js')}}"></script>
 <script src="{{ asset('public/assets/modules/moment.min.js')}}"></script>
 <script src="{{ asset('public/assets/js/stisla.js')}}"></script>
+<script src="{{ asset('public/assets/modules/select2/dist/js/select2.full.min.js')}}"></script>
 
 <!-- JS Libraies -->
 
 <!-- Page Specific JS File -->
 
 <!-- Template JS File -->
+
 <script src="{{ asset('public/assets/js/scripts.js')}}"></script>
 <script src="{{ asset('public/assets/js/custom.js')}}"></script>
 </body>

@@ -8,16 +8,10 @@
     </div>
     <span class="sidebar-menu">
       <li class="menu-header">Dashboard</li>
-      <li class="dropdown">
-        <a href="#" class="nav-link has-dropdown"><i class="fas fa-fire"></i><span>Dashboard</span></a>
-        <ul class="dropdown-menu">
-          <li><a class="nav-link" href="index-0.html">General Dashboard</a></li>
-          <li><a class="nav-link" href="index.html">Ecommerce Dashboard</a></li>
-        </ul>
-      </li>
+      <li><a class="nav-link" href="blank.html"><i class="fas fa-fire"></i> <span>Dashboard</span></a>
       <li class="menu-header">Starter</li>
       <li @if(Request::segment(1) == 'post') class="dropdown active" @endif>
-        <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i>
+        <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-book-open"></i>
           <span>Post</span></a>
         <ul class="dropdown-menu">
           <li @if(Request::segment(1) == 'post')class="active" @endif><a class="nav-link active" href="{{route('post.index')}}">List Post</a></li>
@@ -31,13 +25,12 @@
         </ul>
       </li>
       <li @if(Request::segment(1) == 'tag') class="dropdown active" @endif>
-        <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i>
+        <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="far fa-clipboard"></i>
           <span>Tag</span></a>
         <ul class="dropdown-menu">
           <li @if(Request::segment(1) == 'tag')class="active" @endif><a class="nav-link" href="{{route('tag.index')}}">List Tag</a></li>
         </ul>
       </li>
-      <li><a class="nav-link" href="blank.html"><i class="far fa-square"></i> <span>Blank Page</span></a>
-      </li>
+
   </aside>
 </div>
