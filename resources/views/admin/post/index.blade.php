@@ -25,6 +25,7 @@
             <th>Judul Post</th>
             <th>Kategori</th>
             <th>Tags</th>
+            <th>Publisher</th>
             <th>Thumbnail</th>
             <th>Action</th>
         </tr>
@@ -35,12 +36,12 @@
             <td>{{$result + $post->firstitem()}}</td>
             <td>{{$hasil->judul}}</td>
             <td>{{$hasil->category->name}}</td>
+
             <td>
             @foreach($hasil->tags as $tag)
-            <ul>
-                <li>{{$tag->name}}</li>
-            </ul>
+               <h6><span class="badge badge-info mt-2">{{$tag->name}}</span></h6>
             @endforeach
+            <td>{{$hasil->users->name}}</td>
             </td>
             <td> <img src="{{asset($hasil->gambar)}}" class="img-fluid" style="width:50px"></td>
             <td>

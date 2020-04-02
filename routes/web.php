@@ -27,4 +27,5 @@ Route::group(['middleware' => 'auth'], function () {
     Route::delete('/post/{id}/delete', 'PostController@delete')->name('post.delete');
     Route::resource('/post', 'PostController');
     Route::get('/home', 'HomeController@index')->name('home');
+    Route::resource('/user', 'UserController');
 });

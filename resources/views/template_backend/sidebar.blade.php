@@ -14,6 +14,7 @@
                     <span>Dashboard</span>
                 </a>
             </li>
+
             <li class="menu-header">Starter</li>
             <li @if(Request::segment(1) == 'post') class="dropdown active" @endif>
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown">
@@ -31,6 +32,7 @@
                     </li>
                 </ul>
             </li>
+
             <li
                 @if(Request::segment(1) == 'category')
                 class="dropdown active"
@@ -45,6 +47,7 @@
                     </li>
                 </ul>
             </li>
+
             <li @if(Request::segment(1) == 'tag') class="dropdown active" @endif>
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown">
                     <i class="far fa-clipboard"></i>
@@ -56,6 +59,19 @@
                     </li>
                 </ul>
             </li>
+
+            <li @if(Request::segment(1) == 'user') class="dropdown active" @endif>
+                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown">
+                    <i class="far fa-user"></i>
+                    <span>User</span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li @if(Request::segment(1) == 'user')class="active" @endif>
+                        <a class="nav-link" href="{{route('user.index')}}">List Users</a>
+                    </li>
+                </ul>
+            </li>
+
 
         </aside>
     </div>
